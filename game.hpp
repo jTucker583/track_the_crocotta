@@ -9,20 +9,19 @@ class track_the_crocotta
     {
         bool is_pit;
         bool contains_crocotta;
+        bool is_visited;
     };
     struct player
     {
         int arrows = 2;
-        position pos[ROWS][COLS];
-        int hasFallenIntoPit(int x, int y)
-        {
-            return pos[x][y].is_pit;
-        }
+        std::pair<int, int> playerpos;
     };
 
 private:
-    position position[ROWS][COLS];
+    position posi[ROWS][COLS];
     bool killed_crocotta;
+    player p1;
+    std::pair<int, int> crocotta_pos;
 
 public:
     // constructor
@@ -38,7 +37,9 @@ public:
     bool isPit(int x, int y);
     bool containsCrocotta(int x, int y);
     bool isCrocottaDead();
+    std::pair<int, int> getCrocottaPosition();
     // setters
     void killCrocotta();
     void subtractArrow();
+    void setCrocottaPos(int x, int y);
 };

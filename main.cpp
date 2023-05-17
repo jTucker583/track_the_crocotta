@@ -1,6 +1,5 @@
 #include <iostream>
 #include "game.hpp"
-
 using namespace std;
 
 void debug(track_the_crocotta game)
@@ -40,11 +39,14 @@ int main()
     char key;
     track_the_crocotta game = track_the_crocotta();
     debug(game);
-    while (key != 'q')
-    {
-        key = getchar();
-        fflush(stdin);
-        cout << key << endl;
-    }
+    // while (key != 'q')
+    // {
+    //     key = getchar();
+    //     fflush(stdin);
+    //     cout << key << endl;
+    // }
+
     return 0;
 }
+
+// opengl tutorial stuff - https://satviksrivastava.hashnode.dev/opengl-in-vs-code-setup

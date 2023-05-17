@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <ctime>
 #include "game.hpp"
 
@@ -8,11 +7,15 @@ track_the_crocotta::track_the_crocotta()
     std::pair<int, int> location_of_interest;
     int counter = 0;
 
-    srand(0);
-    for (auto pos : posi)
+    srand(time(0));
+    for (int i = 0; i < ROWS; i++)
     {
-        pos->contains_crocotta = false;
-        pos->is_pit = false;
+        for (int j = 0; j < COLS; j++)
+        {
+            posi[i][j].is_pit = false;
+            posi[i][j].contains_crocotta = false;
+            posi[i][j].is_visited = false;
+        }
     }
     // generate crocotta location
     location_of_interest.first = rand() % ROWS;
@@ -29,6 +32,7 @@ track_the_crocotta::track_the_crocotta()
         else
         {
             posi[location_of_interest.first][location_of_interest.second].is_pit = true;
+            pits[counter] = location_of_interest;
             counter++;
         }
     } while (counter < 3);
@@ -42,6 +46,7 @@ track_the_crocotta::track_the_crocotta()
         {
             p1.playerpos.first = location_of_interest.first;
             p1.playerpos.second = location_of_interest.second;
+            break;
         }
     } while (true);
 }
@@ -66,6 +71,11 @@ bool track_the_crocotta::isPit(int x, int y)
 bool track_the_crocotta::containsCrocotta(int x, int y)
 {
     return (posi[x][y].contains_crocotta);
+}
+
+std::pair<int, int> *track_the_crocotta::getPitLocations()
+{
+    return pits;
 }
 
 bool track_the_crocotta::isCrocottaDead() { return killed_crocotta; }

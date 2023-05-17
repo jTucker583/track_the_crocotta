@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #define ROWS 5
 #define COLS 5
 
@@ -22,6 +21,7 @@ private:
     bool killed_crocotta;
     player p1;
     std::pair<int, int> crocotta_pos;
+    std::pair<int, int> pits[3];
 
 public:
     // constructor
@@ -38,6 +38,7 @@ public:
     bool containsCrocotta(int x, int y);
     bool isCrocottaDead();
     std::pair<int, int> getCrocottaPosition();
+    std::pair<int, int> *getPitLocations();
     // setters
     void killCrocotta();
     void subtractArrow();

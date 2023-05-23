@@ -2,6 +2,7 @@
 #include <ctime>
 #include "game.hpp"
 #include <iomanip>
+#include <string>
 
 track_the_crocotta::track_the_crocotta()
 {
@@ -157,6 +158,10 @@ int track_the_crocotta::shoot(char a)
                 killCrocotta();
                 score += 150;
             }
+            else
+            {
+                moveCrocotta();
+            }
             p1.arrows--;
             return 1;
         }
@@ -168,6 +173,10 @@ int track_the_crocotta::shoot(char a)
             {
                 killCrocotta();
                 score += 150;
+            }
+            else
+            {
+                moveCrocotta();
             }
             p1.arrows--;
             return 1;
@@ -181,6 +190,10 @@ int track_the_crocotta::shoot(char a)
                 killCrocotta();
                 score += 150;
             }
+            else
+            {
+                moveCrocotta();
+            }
             p1.arrows--;
             return 1;
         }
@@ -192,6 +205,10 @@ int track_the_crocotta::shoot(char a)
             {
                 killCrocotta();
                 score += 150;
+            }
+            else
+            {
+                moveCrocotta();
             }
             p1.arrows--;
             return 1;
@@ -221,7 +238,11 @@ void track_the_crocotta::moveCrocotta()
 
 void track_the_crocotta::displayGridAndMenu()
 {
-    std::pair<int, int> temp;
+    const std::string white("\033[0m");
+    const std::string yellow("\033[0;33m");
+    const std::string red("\033[0;31m");
+    std::pair<int, int>
+        temp;
     for (int i = 0; i < ROWS; i++)
     {
         for (int k = 0; k < ROWS * (ROWS - 1); k++)
@@ -236,7 +257,7 @@ void track_the_crocotta::displayGridAndMenu()
             temp.first = j;
             temp.second = i;
             if (p1.playerpos == temp)
-                std::cout << " x |";
+                std::cout << red << " x " << white << "|";
             else
                 std::cout << "   |";
         }
@@ -244,11 +265,37 @@ void track_the_crocotta::displayGridAndMenu()
             std::cout << "\tmove commands: \"w\" (up), \"a\" (left), \"s\" (down), \"d\" (right)";
         else if (i == 1)
             std::cout << "\tshoot commands: \"i\" (up), \"j\" (left), \"k\" (down), \"l\" (right)";
+        else if (i == 2)
+        {
+            std::cout << yellow << "\tobservations: ";
+            int breeze_counter = 0;
+            if (posi[p1.playerpos.first + 1][p1.playerpos.second].is_pit && p1.playerpos.first < ROWS - 1)
+                breeze_counter++;
+            if (posi[p1.playerpos.first - 1][p1.playerpos.second].is_pit && p1.playerpos.first > 0)
+                breeze_counter++;
+            if (posi[p1.playerpos.first][p1.playerpos.second + 1].is_pit && p1.playerpos.second < COLS - 1)
+                breeze_counter++;
+            if (posi[p1.playerpos.first][p1.playerpos.second - 1].is_pit && p1.playerpos.second > 0)
+                breeze_counter++;
+            if (posi[p1.playerpos.first + 1][p1.playerpos.second].contains_crocotta && p1.playerpos.first < ROWS - 1)
+                std::cout << "I hear panting; ";
+            else if (posi[p1.playerpos.first - 1][p1.playerpos.second].contains_crocotta && p1.playerpos.first > 0)
+                std::cout << "I hear panting; ";
+            else if (posi[p1.playerpos.first][p1.playerpos.second + 1].contains_crocotta && p1.playerpos.second < COLS - 1)
+                std::cout << "I hear panting; ";
+            else if (posi[p1.playerpos.first][p1.playerpos.second - 1].contains_crocotta && p1.playerpos.second > 0)
+                std::cout << "I hear panting; ";
+            if (breeze_counter > 1)
+                std::cout << "I feel large gusts of wind;";
+            else if (breeze_counter == 1)
+                std::cout << "I feel a breeze;";
+            std::cout << white;
+        }
         else if (i == 3)
-            std::cout << "\tSCORE: "
-                      << score;
+            std::cout << yellow << "\tSCORE: "
+                      << score << white;
         else if (i == 4)
-            std::cout << "\tplayer pos: (" << p1.playerpos.first << ", " << p1.playerpos.second << ")   player arrows: " << p1.arrows;
+            std::cout << yellow << "\tplayer pos: (" << p1.playerpos.first << ", " << p1.playerpos.second << ")   player arrows: " << p1.arrows << "Crocotta position " << getCrocottaPosition().first << ", " << getCrocottaPosition().second << white;
         std::cout << std::endl;
     }
     for (int i = 0; i < ROWS * (ROWS - 1); i++)

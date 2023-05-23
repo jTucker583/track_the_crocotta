@@ -1,4 +1,5 @@
 #include <iostream>
+#include <set>
 #define ROWS 5
 #define COLS 5
 
@@ -23,6 +24,7 @@ private:
     std::pair<int, int> crocotta_pos;
     std::pair<int, int> pits[3];
     int score = 0;
+    std::set<std::pair<int, int>> visited_spaces;
 
 public:
     // constructor

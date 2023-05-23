@@ -3,7 +3,8 @@
 #include "game.hpp"
 #include <iomanip>
 #include <string>
-
+#include <set>
+#include <algorithm>
 track_the_crocotta::track_the_crocotta()
 {
     std::pair<int, int> location_of_interest;
@@ -49,6 +50,7 @@ track_the_crocotta::track_the_crocotta()
         {
             p1.playerpos.first = location_of_interest.first;
             p1.playerpos.second = location_of_interest.second;
+            visited_spaces.insert(location_of_interest);
             break;
         }
     } while (true);
@@ -113,7 +115,11 @@ int track_the_crocotta::move(char a)
         if (p1.playerpos.first > 0)
         {
             p1.playerpos.first -= 1;
-            score += 10;
+            if (visited_spaces.find(p1.playerpos) == visited_spaces.end())
+            {
+                score += 10;
+                visited_spaces.insert(p1.playerpos);
+            }
             return 1;
         }
         return 0;
@@ -121,7 +127,11 @@ int track_the_crocotta::move(char a)
         if (p1.playerpos.second < COLS - 1)
         {
             p1.playerpos.second += 1;
-            score += 10;
+            if (visited_spaces.find(p1.playerpos) == visited_spaces.end())
+            {
+                score += 10;
+                visited_spaces.insert(p1.playerpos);
+            }
             return 1;
         }
         return 0;
@@ -129,7 +139,11 @@ int track_the_crocotta::move(char a)
         if (p1.playerpos.first < ROWS - 1)
         {
             p1.playerpos.first += 1;
-            score += 10;
+            if (visited_spaces.find(p1.playerpos) == visited_spaces.end())
+            {
+                score += 10;
+                visited_spaces.insert(p1.playerpos);
+            }
             return 1;
         }
         return 0;
@@ -137,7 +151,11 @@ int track_the_crocotta::move(char a)
         if (p1.playerpos.second > 0)
         {
             p1.playerpos.second -= 1;
-            score += 10;
+            if (visited_spaces.find(p1.playerpos) == visited_spaces.end())
+            {
+                score += 10;
+                visited_spaces.insert(p1.playerpos);
+            }
             return 1;
         }
         return 0;
@@ -160,6 +178,7 @@ int track_the_crocotta::shoot(char a)
             }
             else
             {
+                visited_spaces.clear();
                 moveCrocotta();
             }
             p1.arrows--;
@@ -176,6 +195,7 @@ int track_the_crocotta::shoot(char a)
             }
             else
             {
+                visited_spaces.clear();
                 moveCrocotta();
             }
             p1.arrows--;
@@ -192,6 +212,7 @@ int track_the_crocotta::shoot(char a)
             }
             else
             {
+                visited_spaces.clear();
                 moveCrocotta();
             }
             p1.arrows--;
@@ -208,6 +229,7 @@ int track_the_crocotta::shoot(char a)
             }
             else
             {
+                visited_spaces.clear();
                 moveCrocotta();
             }
             p1.arrows--;

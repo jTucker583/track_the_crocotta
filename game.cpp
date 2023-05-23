@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include "game.hpp"
+#include <iomanip>
 
 track_the_crocotta::track_the_crocotta()
 {
@@ -22,12 +23,13 @@ track_the_crocotta::track_the_crocotta()
     location_of_interest.second = rand() % COLS;
     posi[location_of_interest.first][location_of_interest.second].contains_crocotta = true;
     crocotta_pos = location_of_interest;
+    killed_crocotta = false;
     // generate pit locations where the crocotta is not
     do
     {
         location_of_interest.first = rand() % ROWS;
         location_of_interest.second = rand() % COLS;
-        if (posi[location_of_interest.first][location_of_interest.second].contains_crocotta)
+        if (posi[location_of_interest.first][location_of_interest.second].contains_crocotta || posi[location_of_interest.first][location_of_interest.second].is_pit)
             continue;
         else
         {
@@ -52,6 +54,11 @@ track_the_crocotta::track_the_crocotta()
 }
 
 // getter methods
+
+int track_the_crocotta::getArrows()
+{
+    return p1.arrows;
+}
 
 std::pair<int, int> track_the_crocotta::getPosition()
 {
@@ -105,20 +112,23 @@ int track_the_crocotta::move(char a)
         if (p1.playerpos.first > 0)
         {
             p1.playerpos.first -= 1;
+            score += 10;
             return 1;
         }
         return 0;
     case 's': // move down
-        if (p1.playerpos.second < COLS)
+        if (p1.playerpos.second < COLS - 1)
         {
             p1.playerpos.second += 1;
+            score += 10;
             return 1;
         }
         return 0;
     case 'd': // move right
-        if (p1.playerpos.first < ROWS)
+        if (p1.playerpos.first < ROWS - 1)
         {
             p1.playerpos.first += 1;
+            score += 10;
             return 1;
         }
         return 0;
@@ -126,6 +136,7 @@ int track_the_crocotta::move(char a)
         if (p1.playerpos.second > 0)
         {
             p1.playerpos.second -= 1;
+            score += 10;
             return 1;
         }
         return 0;
@@ -142,23 +153,35 @@ int track_the_crocotta::shoot(char a)
         if (p1.playerpos.first > 0)
         {
             if (posi[p1.playerpos.first - 1][p1.playerpos.second].contains_crocotta)
+            {
                 killCrocotta();
+                score += 150;
+            }
+            p1.arrows--;
             return 1;
         }
         return 0;
     case 'k': // shoot down
-        if (p1.playerpos.second < COLS)
+        if (p1.playerpos.second < COLS - 1)
         {
             if (posi[p1.playerpos.first][p1.playerpos.second + 1].contains_crocotta)
+            {
                 killCrocotta();
+                score += 150;
+            }
+            p1.arrows--;
             return 1;
         }
         return 0;
     case 'l': // shoot right
-        if (p1.playerpos.first < ROWS)
+        if (p1.playerpos.first < ROWS - 1)
         {
             if (posi[p1.playerpos.first + 1][p1.playerpos.second].contains_crocotta)
+            {
                 killCrocotta();
+                score += 150;
+            }
+            p1.arrows--;
             return 1;
         }
         return 0;
@@ -166,7 +189,11 @@ int track_the_crocotta::shoot(char a)
         if (p1.playerpos.second > 0)
         {
             if (posi[p1.playerpos.first][p1.playerpos.second - 1].contains_crocotta)
+            {
                 killCrocotta();
+                score += 150;
+            }
+            p1.arrows--;
             return 1;
         }
         return 0;
@@ -190,4 +217,54 @@ void track_the_crocotta::moveCrocotta()
     posi[temp.first][temp.second].contains_crocotta = false;
     setCrocottaPos(randx, randy);
     posi[randx][randy].contains_crocotta = true;
+}
+
+void track_the_crocotta::displayGridAndMenu()
+{
+    std::pair<int, int> temp;
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int k = 0; k < ROWS * (ROWS - 1); k++)
+        {
+            std::cout << "-";
+        }
+        std::cout << "-";
+        std::cout << std::endl;
+        std::cout << "|";
+        for (int j = 0; j < COLS; j++)
+        {
+            temp.first = j;
+            temp.second = i;
+            if (p1.playerpos == temp)
+                std::cout << " x |";
+            else
+                std::cout << "   |";
+        }
+        if (i == 0)
+            std::cout << "\tmove commands: \"w\" (up), \"a\" (left), \"s\" (down), \"d\" (right)";
+        else if (i == 1)
+            std::cout << "\tshoot commands: \"i\" (up), \"j\" (left), \"k\" (down), \"l\" (right)";
+        else if (i == 3)
+            std::cout << "\tSCORE: "
+                      << score;
+        else if (i == 4)
+            std::cout << "\tplayer pos: (" << p1.playerpos.first << ", " << p1.playerpos.second << ")   player arrows: " << p1.arrows;
+        std::cout << std::endl;
+    }
+    for (int i = 0; i < ROWS * (ROWS - 1); i++)
+        std::cout << "-";
+    std::cout << "-" << std::endl;
+}
+
+// endgame function
+void track_the_crocotta::runGameOver()
+{
+    if (isCrocottaDead())
+        std::cout << "You killed the crocotta!" << std::endl;
+    else if (posi[p1.playerpos.first][p1.playerpos.second].contains_crocotta)
+        std::cout << "The crocotta ate you! Game Over." << std::endl;
+    else if (posi[p1.playerpos.first][p1.playerpos.second].is_pit)
+        std::cout << "You fell into a pit! Game Over." << std::endl;
+
+    std::cout << "Final score: " << score << " points" << std::endl;
 }

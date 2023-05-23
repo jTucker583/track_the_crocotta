@@ -22,6 +22,7 @@ private:
     player p1;
     std::pair<int, int> crocotta_pos;
     std::pair<int, int> pits[3];
+    int score = 0;
 
 public:
     // constructor
@@ -30,9 +31,10 @@ public:
     int move(char a);
     int shoot(char a); // character for choosind direction to shoot
     void moveCrocotta();
-    void displayMenu();
+    void displayGridAndMenu();
     void runGameOver();
     // getters
+    int getArrows();
     std::pair<int, int> getPosition();
     bool isPit(int x, int y);
     bool containsCrocotta(int x, int y);

@@ -38,15 +38,74 @@ int main()
 
     char key;
     track_the_crocotta game = track_the_crocotta();
-    debug(game);
-    // while (key != 'q')
-    // {
-    //     key = getchar();
-    //     fflush(stdin);
-    //     cout << key << endl;
-    // }
-
-    return 0;
+    // debug(game);
+    while (true)
+    {
+        std::cout << std::endl;
+        game.displayGridAndMenu();
+        cout << "key: ";
+        cin >> key;
+        switch (key)
+        {
+        case 'w':
+            if (game.move(key) == 0)
+                cout << "Can't move outside the barrier!" << endl;
+            break;
+        case 'a':
+            if (game.move(key) == 0)
+                cout << "Can't move outside the barrier!" << endl;
+            break;
+        case 's':
+            if (game.move(key) == 0)
+                cout << "Can't move outside the barrier!" << endl;
+            break;
+        case 'd':
+            if (game.move(key) == 0)
+                cout << "Can't move outside the barrier!" << endl;
+            break;
+        case 'j':
+            if (game.shoot(key) == 0)
+                cout << "Can't shoot outside the barrier!" << endl;
+            break;
+        case 'k':
+            if (game.shoot(key) == 0)
+                cout << "Can't shoot outside the barrier!" << endl;
+            break;
+        case 'l':
+            if (game.shoot(key) == 0)
+                cout << "Can't shoot outside the barrier!" << endl;
+            break;
+        case 'i':
+            if (game.shoot(key) == 0)
+                cout << "Can't shoot outside the barrier!" << endl;
+            break;
+        case 'Q':
+            return 0;
+        default:
+            cout << "Invalid input." << endl;
+            break;
+        }
+        // check if player has hit a pit or the crocotta after moving
+        int tempx = game.getPosition().first;
+        int tempy = game.getPosition().second;
+        if (game.isPit(tempx, tempy) || game.containsCrocotta(tempx, tempy))
+        {
+            game.runGameOver();
+            return 0;
+        }
+        // check if the crocotta is dead
+        if (game.isCrocottaDead())
+        {
+            game.runGameOver();
+            return 0;
+        }
+        // check if the player has any arrows left
+        if (game.getArrows() == 0)
+        {
+            game.runGameOver();
+            return 0;
+        }
+    }
 }
 
 // opengl tutorial stuff - https://satviksrivastava.hashnode.dev/opengl-in-vs-code-setup

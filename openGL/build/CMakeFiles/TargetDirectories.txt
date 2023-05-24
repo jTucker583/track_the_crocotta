@@ -1,0 +1,3 @@
+/home/jake/Documents/CodingProjects/SDLtest/build/CMakeFiles/SDLtest.exe.dir
+/home/jake/Documents/CodingProjects/SDLtest/build/CMakeFiles/edit_cache.dir
+/home/jake/Documents/CodingProjects/SDLtest/build/CMakeFiles/rebuild_cache.dir

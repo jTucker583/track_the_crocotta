@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -rdynamic CMakeFiles/SDLtest.exe.dir/src/main.cpp.o CMakeFiles/SDLtest.exe.dir/src/glad.c.o -o SDLtest.exe  -lglfw /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so 

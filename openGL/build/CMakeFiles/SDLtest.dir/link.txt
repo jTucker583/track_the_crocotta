@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -rdynamic CMakeFiles/SDLtest.dir/src/main.cpp.o -o SDLtest  -lglfw 

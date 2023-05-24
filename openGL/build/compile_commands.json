@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/jake/Documents/CodingProjects/SDLtest/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/SDLtest.exe.dir/src/main.cpp.o -c /home/jake/Documents/CodingProjects/SDLtest/src/main.cpp",
+  "file": "/home/jake/Documents/CodingProjects/SDLtest/src/main.cpp"
+},
+{
+  "directory": "/home/jake/Documents/CodingProjects/SDLtest/build",
+  "command": "/usr/bin/gcc   -g -o CMakeFiles/SDLtest.exe.dir/src/glad.c.o -c /home/jake/Documents/CodingProjects/SDLtest/src/glad.c",
+  "file": "/home/jake/Documents/CodingProjects/SDLtest/src/glad.c"
+}
+]

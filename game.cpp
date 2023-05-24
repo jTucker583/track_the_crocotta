@@ -317,7 +317,7 @@ void track_the_crocotta::displayGridAndMenu()
             std::cout << yellow << "\tSCORE: "
                       << score << white;
         else if (i == 4)
-            std::cout << yellow << "\tplayer pos: (" << p1.playerpos.first << ", " << p1.playerpos.second << ")   player arrows: " << p1.arrows << "Crocotta position " << getCrocottaPosition().first << ", " << getCrocottaPosition().second << white;
+            std::cout << yellow << "\tplayer pos: (" << p1.playerpos.first << ", " << p1.playerpos.second << ")   player arrows: " << p1.arrows << white;
         std::cout << std::endl;
     }
     for (int i = 0; i < ROWS * (ROWS - 1); i++)

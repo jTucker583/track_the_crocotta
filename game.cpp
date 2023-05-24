@@ -58,35 +58,17 @@ track_the_crocotta::track_the_crocotta()
 
 // getter methods
 
-int track_the_crocotta::getArrows()
-{
-    return p1.arrows;
-}
+int track_the_crocotta::getArrows() { return p1.arrows; }
 
-std::pair<int, int> track_the_crocotta::getPosition()
-{
-    return p1.playerpos;
-}
+std::pair<int, int> track_the_crocotta::getPosition() { return p1.playerpos; }
 
-std::pair<int, int> track_the_crocotta::getCrocottaPosition()
-{
-    return crocotta_pos;
-}
+std::pair<int, int> track_the_crocotta::getCrocottaPosition() { return crocotta_pos; }
 
-bool track_the_crocotta::isPit(int x, int y)
-{
-    return (posi[x][y].is_pit);
-}
+bool track_the_crocotta::isPit(int x, int y) { return (posi[x][y].is_pit); }
 
-bool track_the_crocotta::containsCrocotta(int x, int y)
-{
-    return (posi[x][y].contains_crocotta);
-}
+bool track_the_crocotta::containsCrocotta(int x, int y) { return (posi[x][y].contains_crocotta); }
 
-std::pair<int, int> *track_the_crocotta::getPitLocations()
-{
-    return pits;
-}
+std::pair<int, int> *track_the_crocotta::getPitLocations() { return pits; }
 
 bool track_the_crocotta::isCrocottaDead() { return killed_crocotta; }
 

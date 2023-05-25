@@ -38,10 +38,10 @@ int main()
 
     char key;
     track_the_crocotta game = track_the_crocotta();
-    // debug(game);
     while (true)
     {
         std::cout << std::endl;
+        // debug(game);
         game.displayGridAndMenu();
         cout << "key: ";
         cin >> key;

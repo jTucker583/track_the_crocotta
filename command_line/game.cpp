@@ -273,26 +273,49 @@ void track_the_crocotta::displayGridAndMenu()
         {
             std::cout << yellow << "\tobservations: ";
             int breeze_counter = 0;
+            bool hear_panting = false;
             if (posi[p1.playerpos.first + 1][p1.playerpos.second].is_pit && p1.playerpos.first < ROWS - 1)
+            {
                 breeze_counter++;
+            }
             if (posi[p1.playerpos.first - 1][p1.playerpos.second].is_pit && p1.playerpos.first > 0)
+            {
                 breeze_counter++;
+            }
             if (posi[p1.playerpos.first][p1.playerpos.second + 1].is_pit && p1.playerpos.second < COLS - 1)
+            {
                 breeze_counter++;
+            }
             if (posi[p1.playerpos.first][p1.playerpos.second - 1].is_pit && p1.playerpos.second > 0)
+            {
                 breeze_counter++;
+            }
             if (posi[p1.playerpos.first + 1][p1.playerpos.second].contains_crocotta && p1.playerpos.first < ROWS - 1)
+            {
                 std::cout << "I hear panting; ";
+                hear_panting = true;
+            }
             else if (posi[p1.playerpos.first - 1][p1.playerpos.second].contains_crocotta && p1.playerpos.first > 0)
+            {
                 std::cout << "I hear panting; ";
+                hear_panting = true;
+            }
             else if (posi[p1.playerpos.first][p1.playerpos.second + 1].contains_crocotta && p1.playerpos.second < COLS - 1)
+            {
                 std::cout << "I hear panting; ";
+                hear_panting = true;
+            }
             else if (posi[p1.playerpos.first][p1.playerpos.second - 1].contains_crocotta && p1.playerpos.second > 0)
+            {
                 std::cout << "I hear panting; ";
+                hear_panting = true;
+            }
             if (breeze_counter > 1)
                 std::cout << "I feel large gusts of wind;";
             else if (breeze_counter == 1)
                 std::cout << "I feel a breeze;";
+            if (!hear_panting && breeze_counter == 0)
+                std::cout << "silence;";
             std::cout << white;
         }
         else if (i == 3)
